@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neon Dodge</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="game-wrapper">
+
+      <!-- Start screen -->
+      <div id="start-screen" class="overlay">
+        <h1 class="neon-title">NEON DODGE</h1>
+        <p class="subtitle">Dodge the falling blocks — survive as long as you can!</p>
+        <p class="controls-hint">
+          <span>⬅ / A</span> &nbsp; Move Left &nbsp;&nbsp;
+          <span>➡ / D</span> &nbsp; Move Right
+        </p>
+        <button id="start-btn" class="neon-btn">START GAME</button>
+      </div>
+
+      <!-- Game over screen -->
+      <div id="gameover-screen" class="overlay hidden">
+        <h2 class="neon-title">GAME OVER</h2>
+        <p id="final-score-label" class="score-label">Score: <span id="final-score">0</span></p>
+        <p id="high-score-label" class="score-label dim">Best: <span id="high-score">0</span></p>
+        <button id="restart-btn" class="neon-btn">PLAY AGAIN</button>
+      </div>
+
+      <!-- HUD -->
+      <div id="hud" class="hidden">
+        <span id="score-display">Score: 0</span>
+        <span id="level-display">Level: 1</span>
+      </div>
+
+      <!-- Arena -->
+      <div id="arena">
+        <div id="player"></div>
+      </div>
+
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
