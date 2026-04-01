@@ -1,0 +1,240 @@
+/* ================================================
+   Neon Dodge – stylesheet
+   ================================================ */
+
+/* ---------- Reset & base ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --neon-cyan:   #00f7ff;
+  --neon-pink:   #ff00c8;
+  --neon-yellow: #f7ff00;
+  --neon-green:  #39ff14;
+  --bg:          #0a0a14;
+  --panel-bg:    rgba(10, 10, 30, 0.88);
+  --player-size: 44px;
+  --obstacle-h:  22px;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  color: #fff;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ---------- Game wrapper ---------- */
+#game-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- Arena ---------- */
+#arena {
+  position: relative;
+  width: min(420px, 96vw);
+  height: min(680px, 92vh);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 8px;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 110%, #0d1a2e 0%, #07070f 70%);
+  box-shadow: 0 0 24px var(--neon-cyan), inset 0 0 40px rgba(0, 247, 255, 0.04);
+}
+
+/* Subtle scanline overlay */
+#arena::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.04) 0px,
+    rgba(0,0,0,0.04) 1px,
+    transparent 1px,
+    transparent 4px
+  );
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ---------- Player ---------- */
+#player {
+  position: absolute;
+  bottom: 18px;
+  width: var(--player-size);
+  height: var(--player-size);
+  border-radius: 6px;
+  background: var(--neon-cyan);
+  box-shadow: 0 0 14px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+  transition: left 0.06s linear;
+  z-index: 10;
+}
+
+/* ---------- Obstacles ---------- */
+.obstacle {
+  position: absolute;
+  height: var(--obstacle-h);
+  border-radius: 4px;
+  z-index: 8;
+  will-change: transform;
+}
+
+/* ---------- HUD ---------- */
+#hud {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(420px, 96vw);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px var(--neon-cyan);
+  z-index: 20;
+}
+
+/* ---------- Overlays (start / game-over) ---------- */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: var(--panel-bg);
+  backdrop-filter: blur(4px);
+  z-index: 30;
+  text-align: center;
+  padding: 24px;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+/* ---------- Neon title ---------- */
+.neon-title {
+  font-size: clamp(2rem, 8vw, 3.4rem);
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+  text-shadow:
+    0 0 8px  var(--neon-cyan),
+    0 0 20px var(--neon-cyan),
+    0 0 48px var(--neon-pink);
+  animation: flicker 5s infinite alternate;
+}
+
+@keyframes flicker {
+  0%,  95%, 100% { opacity: 1; }
+  96%            { opacity: 0.7; }
+  97%            { opacity: 1; }
+  98%            { opacity: 0.4; }
+}
+
+/* ---------- Subtitle / hints ---------- */
+.subtitle {
+  font-size: 0.95rem;
+  color: #ccc;
+  max-width: 300px;
+  line-height: 1.5;
+}
+
+.controls-hint {
+  font-size: 0.82rem;
+  color: var(--neon-yellow);
+  text-shadow: 0 0 6px var(--neon-yellow);
+  letter-spacing: 0.05em;
+}
+
+.controls-hint span {
+  background: rgba(247, 255, 0, 0.12);
+  border: 1px solid var(--neon-yellow);
+  border-radius: 4px;
+  padding: 1px 6px;
+}
+
+/* ---------- Score labels ---------- */
+.score-label {
+  font-size: 1.2rem;
+  color: var(--neon-green);
+  text-shadow: 0 0 8px var(--neon-green);
+}
+
+.score-label.dim {
+  font-size: 1rem;
+  color: #aaa;
+  text-shadow: none;
+}
+
+/* ---------- Neon button ---------- */
+.neon-btn {
+  margin-top: 8px;
+  padding: 12px 36px;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--neon-cyan);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 0 12px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+  transition: transform 0.1s, box-shadow 0.2s;
+}
+
+.neon-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 20px var(--neon-cyan), 0 0 50px var(--neon-cyan);
+}
+
+.neon-btn:active {
+  transform: scale(0.97);
+}
+
+/* ---------- Particle burst ---------- */
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 15;
+  animation: particleFly 0.55s ease-out forwards;
+}
+
+@keyframes particleFly {
+  0%   { opacity: 1; transform: translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.2); }
+}
+
+/* ---------- Arena flash on game-over ---------- */
+#arena.flash {
+  animation: arenaFlash 0.4s ease-out forwards;
+}
+
+@keyframes arenaFlash {
+  0%   { background-color: rgba(255, 0, 0, 0.25); }
+  100% { background-color: transparent; }
+}
+
+/* ---------- Utility ---------- */
+.hidden { display: none !important; }
